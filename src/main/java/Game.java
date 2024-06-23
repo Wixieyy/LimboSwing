@@ -13,6 +13,8 @@ public class Game {
     public void start() throws InterruptedException {
         loadCoordinates();
 
+        Music.playMusic("src/main/resources/limbo.wav");
+
         for (int x = 0; x < 8; x++) {
             JFrame frame = new JFrame(String.valueOf(windowCount + 1));
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // DO_NOTHING_ON_CLOSE

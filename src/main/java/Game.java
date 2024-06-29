@@ -13,7 +13,7 @@ public class Game {
     public void start() throws InterruptedException {
         loadCoordinates();
 
-        Music.playMusic("src/main/resources/limbo.wav");
+        Music.playMusic("src/main/resources/limbo-vol-trim.wav");
 
         for (int x = 0; x < 8; x++) {
             JFrame frame = new JFrame(String.valueOf(windowCount + 1));
@@ -43,12 +43,14 @@ public class Game {
     private void moveWindowsToNewCoordinates() {
         List<JFrame> framesToMove = new ArrayList<>(frames);
 
-        for (JFrame frame : framesToMove) {
+        while (!framesToMove.isEmpty()) {
+            JFrame frame = framesToMove.remove(0);
             int[] newCoordinates = pickRandomCoordinates();
-            JFrame existingFrame = getFrameAtLocation(newCoordinates[0], newCoordinates[1]);
+            JFrame frameAtNewLocation = getFrameAtLocation(newCoordinates[0], newCoordinates[1]);
 
-            if (existingFrame != null) {
-                swapFrames(frame, existingFrame);
+            if (frameAtNewLocation != null) {
+                swapFrames(frame, frameAtNewLocation);
+                framesToMove.remove(frameAtNewLocation);
             } else {
                 moveWindowSmoothly(frame, newCoordinates[0], newCoordinates[1], 1000);
             }
